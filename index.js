@@ -23,9 +23,15 @@ aws.config.update({
     try {
         const getData = await s3_connector.getObject(s3_query_params).promise(); 
         const transformedData = JSON.parse(getData.Body.toString('utf-8'));
-        console.log('Before', transformedData.pi, transformedData.pi.length);
         const updatedPiValue = await pi_handler.get_next_precision(transformedData);
 
+        const updateS3Params = {
+            ...s3_query_params,
+            Body: JSON.stringify(updatedPiValue),
+        };
+
+        await s3_connector.putObject(updateS3Params).promise();
+        console.log('Before', transformedData.pi, transformedData.pi.length);
         console.log('After', updatedPiValue.pi, updatedPiValue.pi.length);
         unitTesting.test_update_pi(transformedData.pi, updatedPiValue.pi);
     }

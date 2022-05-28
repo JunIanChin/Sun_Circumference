@@ -3,6 +3,11 @@
     "assert": "^2.0.0",
     "aws-sdk": "^2.1144.0",
     "big-integer": "^1.6.51",
-    "dotenv": "^16.0.1"
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "mocha": "^10.0.0"
+  },
+  "scripts" : {
+    "test" : "mocha --reporter spec"
   }
 }

@@ -23,9 +23,7 @@ function get_next_precision(previous_values) {
             values.r = u * 10n * (values.q * (values.i * 5n -2n) + values.r - values.t * next_precision);
             values.q *= 10n * values.i * (values.i++ * 2n -1n);
             values.t *= u; 
-            values.pi = bigInt(values.pi).toJSNumber() === 0 ? 
-                        next_precision : 
-                        bigInt(values.pi).toString().concat(bigInt(next_precision).toString());
+            values.pi = bigInt(values.pi).toString().concat(bigInt(next_precision).toString());
 
             // Convert all values to string to retain accuracy 
             Object.keys(values).forEach((key) => {
