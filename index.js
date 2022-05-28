@@ -32,7 +32,7 @@ exports.handler = async (event) => {
 
         const successResp = {
             statusCode: HTTP_CODE.OK,
-            body: HTTP_CODE.OK,
+            body: HTTP_MESSAGE.OK,
         };
 
         return successResp;
