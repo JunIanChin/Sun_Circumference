@@ -1,4 +1,4 @@
-const precision_default_value = () => {
+const getDefaultPiValue = () => {
     return new Promise (async (resolve, reject) => {
         try {
             const default_params = {
@@ -17,5 +17,5 @@ const precision_default_value = () => {
 };
 
 module.exports = {
-    precision_default_value,
+    getDefaultPiValue,
 };

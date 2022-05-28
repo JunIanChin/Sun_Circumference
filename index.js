@@ -1,6 +1,6 @@
 const aws = require('aws-sdk');
 const {HTTP_CODE, HTTP_MESSAGE, BUCKET_INFO} = require('./utils/constants');
-const reset_pi_handler = require('./utils/resetPi');
+const resetPiHandler = require('./utils/resetPi');
 
 const S3_PARAMS = {
     Bucket: BUCKET_INFO.BUCKET, 
@@ -21,14 +21,14 @@ exports.handler = async (event) => {
     }
 
     try {
-        const s3_connector = new aws.S3(); 
-        const getResetPiValues = await reset_pi_handler.precision_default_value(); 
+        const s3Connector = new aws.S3(); 
+        const getResetPiValues = await resetPiHandler.getDefaultPiValue(); 
         const resetPiParams = {
             ...S3_PARAMS,
             Body: JSON.stringify(getResetPiValues),
         };
 
-        await s3_connector.putObject(resetPiParams).promise(); 
+        await s3Connector.putObject(resetPiParams).promise(); 
 
         const successResp = {
             statusCode: HTTP_CODE.OK,
