@@ -1,4 +1,4 @@
-const bigInt = require('./BigInteger');
+const bigInt = require('../dependencies/BigInteger');
 
 /*
 Algorithm used: streaming algorithm described by Jeremy Gibbons

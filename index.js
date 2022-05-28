@@ -1,6 +1,6 @@
 const aws = require('aws-sdk');
-const { HTTP_CODE, HTTP_MESSAGE, BUCKET_INFO, SUN_INFO } = require('./constants');
-const pi_get_next_precision_handler = require('./pi_algorithm');
+const { HTTP_CODE, HTTP_MESSAGE, BUCKET_INFO, SUN_INFO } = require('./utils/constants');
+const pi_get_next_precision_handler = require('./services/pi_algorithm');
 
 const S3_PARAMS  = {
     Bucket: BUCKET_INFO.BUCKET,
@@ -31,12 +31,14 @@ exports.handler = async (event) => {
         await s3_connector.putObject(updateParams).promise();
 
         /* Return latest pi precision value and circumference of sun based on this value*/
-        const latest_pi_precision = parseInt(get_next_pi_precision.pi.slice(0,1).concat('.').concat(get_next_pi_precision.pi.slice(1,)), 10);
-        const sun_circumference = latest_pi_precision * SUN_INFO.DIAMETER;
-
+        const decimalify_pi_value = (get_next_pi_precision.pi.slice(0,1).concat('.')).concat(get_next_pi_precision.pi.slice(1,));
+        const latest_pi_precision = parseFloat(decimalify_pi_value);
+        const sun_circumference = latest_pi_precision * parseFloat(SUN_INFO.DIAMETER); 
+        
+        console.log(latest_pi_precision, sun_circumference);
         const queryResponse = {
-            pi: get_next_pi_precision.pi,
-            circumeference: sun_circumference,
+            pi: decimalify_pi_value,
+            circumeference: sun_circumference.toPrecision(50),
         };
 
         const response = {
