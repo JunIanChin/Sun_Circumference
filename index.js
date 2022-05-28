@@ -1,42 +1,58 @@
 const aws = require('aws-sdk');
-const pi_handler = require('./pi_algorithm');
-const unitTesting = require('./unitTest');
-require('dotenv').config();
+const { HTTP_CODE, HTTP_MESSAGE, BUCKET_INFO, SUN_INFO } = require('./constants');
+const pi_get_next_precision_handler = require('./pi_algorithm');
 
-/*Local testing of s3 connection */
-aws.config.update({
-    region: 'ap-southeast-1', 
-    apiVersion: 'latest', 
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY, 
-        secretAccessKey: process.env.AWS_SECRET_KEY,
-    }   
-});
+const S3_PARAMS  = {
+    Bucket: BUCKET_INFO.BUCKET,
+    Key: BUCKET_INFO.KEY,
+};
 
-(async function main(){
-    const s3_query_params = {
-        Bucket: process.env.S3_BUCKET_NAME, 
-        Key: process.env.S3_BUCKET_KEY,
-    };
+exports.handler = async (event) => {
+    // Only accept http method 'GET' , invoke through HTTP request
+    if (event.requestContext.http.method !== 'GET') {
+        const bad_method_resp = {
+            statusCode: HTTP_CODE.BAD_REQUEST,
+            body: HTTP_MESSAGE.BAD_REQUEST
+        }
 
-    const s3_connector = new aws.S3(); 
+        return bad_method_resp;
+    }
+
     try {
-        const getData = await s3_connector.getObject(s3_query_params).promise(); 
-        const transformedData = JSON.parse(getData.Body.toString('utf-8'));
-        const updatedPiValue = await pi_handler.get_next_precision(transformedData);
+        const s3_connector = new aws.S3(); 
+        const getCurrentPiData = await s3_connector.getObject(S3_PARAMS).promise(); 
+        const get_next_pi_precision = await pi_get_next_precision_handler.get_next_precision(JSON.parse(getCurrentPiData.Body.toString('utf-8')));
 
-        const updateS3Params = {
-            ...s3_query_params,
-            Body: JSON.stringify(updatedPiValue),
+        const updateParams = {
+            ...S3_PARAMS,
+            Body: JSON.stringify(get_next_pi_precision),
+        };
+        
+        await s3_connector.putObject(updateParams).promise();
+
+        /* Return latest pi precision value and circumference of sun based on this value*/
+        const latest_pi_precision = parseInt(get_next_pi_precision.pi.slice(0,1).concat('.').concat(get_next_pi_precision.pi.slice(1,)), 10);
+        const sun_circumference = latest_pi_precision * SUN_INFO.DIAMETER;
+
+        const queryResponse = {
+            pi: get_next_pi_precision.pi,
+            circumeference: sun_circumference,
         };
 
-        await s3_connector.putObject(updateS3Params).promise();
-        console.log('Before', transformedData.pi, transformedData.pi.length);
-        console.log('After', updatedPiValue.pi, updatedPiValue.pi.length);
-        unitTesting.test_update_pi(transformedData.pi, updatedPiValue.pi);
+        const response = {
+            statusCode: HTTP_CODE.OK,
+            body: JSON.stringify(queryResponse),
+        };
+
+        return response;
     }
     catch(err) {
-        console.log(err);
+        const server_error_resp = {
+            statusCode: HTTP_CODE.INTERNAL_SERVER_ERROR,
+            body: err.toString('utf-8'),
+        };
+
+        return server_error_resp;
     }
-    
-})();
+};
+

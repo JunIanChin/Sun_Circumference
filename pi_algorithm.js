@@ -1,4 +1,4 @@
-const bigInt = require('big-integer');
+const bigInt = require('./BigInteger');
 
 /*
 Algorithm used: streaming algorithm described by Jeremy Gibbons
