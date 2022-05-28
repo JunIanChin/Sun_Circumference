@@ -5,7 +5,7 @@ Pre-requisite
 
 ` AWS S3 setup done `
 
-` node version >= 16.x.0 `
+` node version >= 16.x `
 
 ` npm version >= 8.5.0 `
 

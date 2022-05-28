@@ -1,5 +1,4 @@
 const aws = require('aws-sdk');
-const unitTesting = require('./unitTest');
 require('dotenv').config();
 
 /*Local testing of s3 connection */
@@ -12,17 +11,17 @@ aws.config.update({
     }   
 });
 
-const precision_default_value = () => {
+const getPiPrecisionDefaultValue = () => {
     return new Promise (async (resolve, reject) => {
         try {
-            const default_params = {
+            const defaultParams = {
                 q : '60',
                 r : '13440',
                 t : '10080' ,
                 i : '3' , 
                 pi: '3'
             };
-            return resolve(default_params);
+            return resolve(defaultParams);
         }
         catch(err) {
             return reject(err);
@@ -31,24 +30,20 @@ const precision_default_value = () => {
 }
 
 (async function main(){
-    const s3_query_params = {
+    const s3QueryParams = {
         Bucket: process.env.S3_BUCKET_NAME, 
         Key: process.env.S3_BUCKET_KEY,
     };
 
     const s3_connector = new aws.S3(); 
     try {
-        const getPiResetParams = await precision_default_value(); 
+        const getPiResetParams = await getPiPrecisionDefaultValue(); 
         const resetPiS3params = {
-            ...s3_query_params, 
+            ...s3QueryParams, 
             Body: JSON.stringify(getPiResetParams),
         };
+
         await s3_connector.putObject(resetPiS3params).promise();
-
-        const getData = await s3_connector.getObject(s3_query_params).promise(); 
-        unitTesting.test_reset_pi(JSON.parse(getData.Body.toString('utf-8')));
-
-
     }
     catch(err) {
         console.log(err);
@@ -57,5 +52,5 @@ const precision_default_value = () => {
 })();
 
 module.exports = {
-    precision_default_value,
+    getPiPrecisionDefaultValue,
 }
