@@ -22,7 +22,7 @@ const s3_query_params = {
 
 const s3_connector = new aws.S3();
 
-describe('Get next Pi precision value', function() {
+describe('Function Test, get next Pi precision value', function() {
     it ("Successfully gets value from S3 and types are correctly stored", async function() {
         const getData = await s3_connector.getObject(s3_query_params).promise(); 
         expect(getData).to.not.equal(null);
@@ -60,7 +60,7 @@ describe('Get next Pi precision value', function() {
     })
 })
 
-describe('Reset Pi value', function(){
+describe('Function test, reset Pi value', function(){
     it('Function precision_default_value should return correct values', async function(){
         const resetPiValues = await pi_reset_precision_handler.precision_default_value(); 
         expect(parseInt(resetPiValues.q,10)).to.equal(60);

@@ -31,9 +31,6 @@ aws.config.update({
         };
 
         await s3_connector.putObject(updateS3Params).promise();
-        console.log('Before', transformedData.pi, transformedData.pi.length);
-        console.log('After', updatedPiValue.pi, updatedPiValue.pi.length);
-        unitTesting.test_update_pi(transformedData.pi, updatedPiValue.pi);
     }
     catch(err) {
         console.log(err);
