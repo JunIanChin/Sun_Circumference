@@ -7,6 +7,14 @@
 - node version >= 16.x
 - npm version >= 8.5
 - A File uploaded already in your S3 Bucket
+- .env File in your root folder eg:
+
+```sh
+S3_BUCKET_NAME=<redacted>
+S3_BUCKET_KEY=<redacted>
+AWS_ACCESS_KEY=<redacted>
+AWS_SECRET_KEY=<redacted>
+```
 
 ## Installation
 
