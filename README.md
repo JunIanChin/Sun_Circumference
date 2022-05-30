@@ -31,7 +31,7 @@ npm run build
 serve -s build -l 3000 #listening to port 3000
 ```
 
-## Trying it out (default port is 4000 )
+## Trying it out
 
 - Getting next pi precision
 
