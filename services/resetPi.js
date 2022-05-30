@@ -61,4 +61,5 @@ async function resetPiPrecision() {
 
 module.exports = {
   resetPiPrecision,
+  getPiPrecisionDefaultValue,
 }
