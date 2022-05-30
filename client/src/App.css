@@ -1,0 +1,33 @@
+html {
+  text-align: center;
+  background-color: #1d1d1d;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://cdn.dribbble.com/users/2643208/screenshots/6809225/solar_system_2.gif');
+}
+
+h1 {
+  font-size: 50;
+  color: white;
+}
+
+h2 {
+  font-size: 30;
+  color: #f5f5f5;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .Sun-logo {
+    animation: Sun-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes Sun-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
