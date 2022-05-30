@@ -96,6 +96,12 @@ curl -X GET "http://127.0.0.1:4000/resetPiPrecision"
 Open http://127.0.0.1:3000 on browser
 ```
 
+- Or you can visit here (p/s: might be slow at connecting)
+
+```sh
+http://junian-c.tech:4000
+```
+
 ## Deploying to AWS Lambda
 
 - zip get-pi and reset-pi folder in aws-lambda
