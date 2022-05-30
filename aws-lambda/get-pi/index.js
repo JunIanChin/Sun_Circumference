@@ -16,7 +16,7 @@ exports.handler = async (event) => {
   try {
     const s3Connector = new aws.S3()
     const getCurrentPiData = await s3Connector.getObject(S3_PARAMS).promise()
-    const newPiData = await nextPiHandler.getNextPrecision(
+    const newPiData = nextPiHandler.getNextPrecision(
       JSON.parse(getCurrentPiData.Body.toString('utf-8')),
     )
 
@@ -48,9 +48,10 @@ exports.handler = async (event) => {
 
     return response
   } catch (err) {
+    console.log(err)
     const server_error_resp = {
       statusCode: HTTP_CODE.INTERNAL_SERVER_ERROR,
-      body: err.toString('utf-8'),
+      body: HTTP_MESSAGE.INTERNAL_SERVER_ERROR,
     }
 
     return server_error_resp

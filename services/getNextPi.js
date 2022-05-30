@@ -24,9 +24,7 @@ async function getNextPiPrecision() {
   try {
     const currentPiData = await s3Connector.getObject(s3QueryParams).promise()
     const JSONifiedPiData = JSON.parse(currentPiData.Body.toString('utf-8'))
-    const updatedPiValue = await nextPiHandler.getNextPiPrecision(
-      JSONifiedPiData,
-    )
+    const updatedPiValue = nextPiHandler.getNextPiPrecision(JSONifiedPiData)
 
     const updateS3Params = {
       ...s3QueryParams,

@@ -14,9 +14,7 @@ describe('Function Test, get next Pi precision value', function () {
       pi: '3',
     }
 
-    const updatedPiValue = await nextPiHandler.getNextPiPrecision(
-      transformedData,
-    )
+    const updatedPiValue = nextPiHandler.getNextPiPrecision(transformedData)
 
     Object.keys(transformedData).forEach((key) => {
       transformedData[key] = bigInt(transformedData[key]).value
@@ -63,7 +61,7 @@ describe('Function Test, get next Pi precision value', function () {
 
 describe('Function test, reset Pi value', function () {
   it('Function precision_default_value should return correct transformedData', async function () {
-    const resetPitransformedData = await resetPiHandler.getPiPrecisionDefaultValue()
+    const resetPitransformedData = resetPiHandler.getPiPrecisionDefaultValue()
     expect(parseInt(resetPitransformedData.q, 10)).to.equal(60)
     expect(parseInt(resetPitransformedData.r, 10)).to.equal(13440)
     expect(parseInt(resetPitransformedData.t, 10)).to.equal(10080)

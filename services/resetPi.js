@@ -1,4 +1,3 @@
-const { ok } = require('assert')
 const aws = require('aws-sdk')
 const { HTTP_CODE, HTTP_MESSAGE } = require('../utils/constants')
 require('dotenv').config()
@@ -15,20 +14,14 @@ aws.config.update({
 })
 
 const getPiPrecisionDefaultValue = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const defaultParams = {
-        q: '60',
-        r: '13440',
-        t: '10080',
-        i: '3',
-        pi: '3',
-      }
-      return resolve(defaultParams)
-    } catch (err) {
-      return reject(err)
-    }
-  })
+  const defaultParams = {
+    q: '60',
+    r: '13440',
+    t: '10080',
+    i: '3',
+    pi: '3',
+  }
+  return defaultParams
 }
 
 async function resetPiPrecision() {
@@ -39,7 +32,7 @@ async function resetPiPrecision() {
 
   const s3_connector = new aws.S3()
   try {
-    const getPiResetParams = await getPiPrecisionDefaultValue()
+    const getPiResetParams = getPiPrecisionDefaultValue()
     const resetPiS3params = {
       ...s3QueryParams,
       Body: JSON.stringify(getPiResetParams),
