@@ -5,6 +5,7 @@ import GetPiButton from './components/GetPiBtn'
 import ResetPiButton from './components/ResetPiBtn'
 import { useEffect, useState } from 'react'
 import { getNextPiPrecision } from './services/getPiPrecision'
+import { LinearProgress } from '@mui/material'
 
 function App() {
   const [piValue, setPiValue] = useState(0)
@@ -17,6 +18,7 @@ function App() {
   }
 
   useEffect(() => {
+    document.title = 'Sun Circumference'
     function initialDisplay() {
       if (isLoading) {
         getNextPiPrecision()
@@ -49,8 +51,10 @@ function App() {
         item
       >
         <Grid
+          container
           sx={{
             marginRight: 1,
+            width: 1 / 3,
           }}
           display={'flex'}
           direction={'column'}
@@ -65,15 +69,20 @@ function App() {
             className="piValue"
             id="filled-textarea"
             label="Value of Pi"
-            defaultValue={isLoading ? 'Loading' : piValue}
-            value={piValue}
+            value={isLoading ? 'Loading' : piValue}
             multiline
             variant="filled"
           />
           <GetPiButton updateDisplay={updateDisplay} />
         </Grid>
 
-        <Grid sx={{ marginLeft: 1 }} display={'flex'} direction={'column'} item>
+        <Grid
+          container
+          sx={{ marginLeft: 1, width: 1 / 3 }}
+          display={'flex'}
+          direction={'column'}
+          item
+        >
           <TextField
             sx={{
               bgcolor: '#fff',
@@ -83,12 +92,11 @@ function App() {
             className="sunCircumference"
             id="filled-textarea"
             label="Sun Circumference"
-            defaultValue={isLoading ? 'Loading' : sunCircumference}
-            value={sunCircumference}
+            value={isLoading ? 'Loading' : sunCircumference}
             multiline
             variant="filled"
           />
-          <ResetPiButton updateDisplay={updateDisplay} />{' '}
+          <ResetPiButton updateDisplay={updateDisplay} />
         </Grid>
       </Grid>
     </div>

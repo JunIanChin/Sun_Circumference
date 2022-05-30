@@ -25,7 +25,7 @@ function GetNextPiButton({ updateDisplay }) {
       variant="contained"
       onClick={getPi}
     >
-      Get Pi Precision
+      Get Next Precision
     </Button>
   )
 }
