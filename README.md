@@ -1,29 +1,65 @@
-# Sun_Circumference
-Calculate Value of PI algorithmically and finally calculate Circumference of the Sun using the PI value.
+# Sun Circumference
 
-Pre-requisite 
+## Calculate Value of Pi algorithmically and calculate circumference of the Sun using the Pi value.
 
-` AWS S3 setup done `
+## Pre-requisite
 
-` node version >= 16.x `
+- node version >= 16.x
+- npm version >= 8.5
 
-` npm version >= 8.5.0 `
+## Installation
 
-How to run? 
+Install the dependencies and start the server.
 
-` 1) Clone this repository , cd into the folder `
+```sh
+git clone https://github.com/JunIanChin/Sun_Circumference
+For server,
+cd Sun_Circumference
+npm install
+npm run start
+For UI,
+cd client
+npm install
+npm run start
+```
 
-` 2) npm install `
+For production
 
-` 3) Create a .env file, consisting of {
-    S3_BUCKET_NAME=<ur_s3_bucket_name>
-    S3_BUCKET_KEY=<ur_s3_bucket_key>
-    AWS_ACCESS_KEY=<ur_aws_access_key>
-    AWS_SECRET_KEY=<ur_aws_secret_key> 
-    } `
-    
-` 4) node index.js ` 
+```sh
+cd client
+npm run build
+serve -s build -l 3000 #listening to port 3000
+```
 
-Unit Test (if you want)
+## Trying it out (default port is 4000 )
 
-`npm test`
+- Getting next pi precision
+
+```sh
+curl -X GET "http://127.0.0.1:4000/getPiPrecision"
+```
+
+- Reset Pi Precision
+
+```sh
+curl -X GET "http://127.0.0.1:4000/resetPiPrecision"
+```
+
+- For UI
+
+```sh
+Open http://127.0.0.1:3000 on browser
+```
+
+## Deploying to AWS Lambda
+
+- zip get-pi and reset-pi folder in aws-lambda
+- Create 2 functions: 1 for get-pi , another for reset-pi and upload the folder respectively
+- Change the endpoints in the file to reflect to your own endpoint
+- Change the bucket and key as well to reflect to your own AWS S3
+
+## Limitations
+
+- There will be a race-condition currently, moving forward can enhance using queue system.
+- Due to ES6 Number type ceiling, there can only be that much, thus for Sun Circumference, post certain value of pi precision the value will be the same.
+- Load testing
