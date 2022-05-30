@@ -56,6 +56,8 @@ npm install
 
 Starting local server
 
+## modify client/src/utils/constants.js value and point to your own endpoint
+
 ```sh
 npm run start
 ```
