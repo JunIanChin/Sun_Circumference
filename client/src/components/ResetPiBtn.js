@@ -6,7 +6,7 @@ function ResetPiButton({ updateDisplay }) {
   function resetPi() {
     resetPiPrecision()
       .then(() => {
-        updateDisplay(3, '4.1781 million km')
+        updateDisplay(3, 4.1781)
       })
       .catch((err) => {
         updateDisplay('Something went wrong')

@@ -55,6 +55,7 @@ function App() {
           sx={{
             marginRight: 1,
             width: 1 / 3,
+            height: '100%',
           }}
           display={'flex'}
           direction={'column'}
@@ -78,7 +79,7 @@ function App() {
 
         <Grid
           container
-          sx={{ marginLeft: 1, width: 1 / 3 }}
+          sx={{ marginLeft: 1, width: 1 / 3, height: '100%' }}
           display={'flex'}
           direction={'column'}
           item
@@ -91,7 +92,7 @@ function App() {
             }}
             className="sunCircumference"
             id="filled-textarea"
-            label="Sun Circumference"
+            label="Sun Circumference (million km)"
             value={isLoading ? 'Loading' : sunCircumference}
             multiline
             variant="filled"

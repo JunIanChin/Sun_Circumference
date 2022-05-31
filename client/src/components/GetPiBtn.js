@@ -6,7 +6,7 @@ function GetNextPiButton({ updateDisplay }) {
   function getPi() {
     getNextPiPrecision()
       .then((data) => {
-        updateDisplay(data.pi, `${data.circumference} million km`)
+        updateDisplay(data.pi, data.circumference)
       })
       .catch((err) => console.log(err))
   }
