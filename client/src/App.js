@@ -5,7 +5,6 @@ import GetPiButton from './components/GetPiBtn'
 import ResetPiButton from './components/ResetPiBtn'
 import { useEffect, useState } from 'react'
 import { getNextPiPrecision } from './services/getPiPrecision'
-import { LinearProgress } from '@mui/material'
 
 function App() {
   const [piValue, setPiValue] = useState(0)
@@ -32,7 +31,7 @@ function App() {
       }
     }
     initialDisplay()
-  }, [])
+  })
 
   return (
     <div className="App">
