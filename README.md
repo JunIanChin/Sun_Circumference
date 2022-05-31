@@ -96,6 +96,12 @@ curl -X GET "http://127.0.0.1:4000/resetPiPrecision"
 Open http://127.0.0.1:3000 on browser
 ```
 
+- Or you can visit here (p/s: might be slow at connecting)
+
+```sh
+http://junian-c.tech:4000
+```
+
 ## Deploying to AWS Lambda
 
 - zip get-pi and reset-pi folder in aws-lambda
@@ -103,7 +109,7 @@ Open http://127.0.0.1:3000 on browser
 - Change the endpoints in the file to reflect to your own endpoint
 - Change the bucket and key as well to reflect to your own AWS S3
 
-## Limitations
+## Limitations and future improvements
 
 - There will be a race-condition currently, moving forward can enhance using queue system.
 - Due to ES6 Number type ceiling, there can only be that much, thus for Sun Circumference, post certain value of pi precision the value will be the same.
