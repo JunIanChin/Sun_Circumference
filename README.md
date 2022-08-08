@@ -1,4 +1,4 @@
-# Sun Circumference
+# Sun Circumference for Naluri assignment
 
 ## Calculate Value of Pi algorithmically and calculate circumference of the Sun using the Pi value.
 
